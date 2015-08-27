@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>程序：</h2>
+{% if program_list %}
+<ul>
+  {% for prog in program_list %}
+  <li>
+    <a href="{% url 'prog_detail' prog.id %}">
+      <!-- <h3>{{ prog.pds }} ({{ prog.name }})</h3> -->
+      <h3>{{ prog }}</h3>
+    </a>
+  </li>
+</ul>
+{% endfor %}
+{% endif %}
+{% endblock %}

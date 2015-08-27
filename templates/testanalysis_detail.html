@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if testanalysis_detail %}
+
+  <h3>批次：{{ testanalysis_detail.version }}</h3><br>
+  <h3>程序：{{ testanalysis_detail.program }}</h3>
+
+{% endif %}
+
+{% endblock %}

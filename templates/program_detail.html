@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if program_detail %}
+
+  <h3>程序名：{{ program_detail.name }}</h3><br>
+  <h3>PDS：{{ program_detail.pds }}</h3>
+
+{% endif %}
+
+{% endblock %}

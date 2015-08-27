@@ -1,0 +1,108 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>CobolTDD</title>
+
+    {% load staticfiles %}
+    {% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'TestMIS/django_tables2/themes/paleblue/css/screen.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'TestMIS/bootstrap.min.css' %}" />
+    {% endblock %}
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <!-- <a class="navbar-brand" href="{}">主机列表</a> -->
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                {% if user.is_authenticated %}
+                <li><a href="#"> 欢迎 {{ user.username }}</a></li>
+                    <li><a href="{% url 'upload_file' %}">上传文件</a></li>
+                    <li><a href="{% url 'place_list' %}">主机列表</a></li>
+                    <li class=""><a href="{% url 'ver_list' %}">批次列表</a></li>
+                    <li><a href="{% url 'testana_list' %}">测试分析</a></li>
+                <li><a href="{% url 'testcase_list' %}">测试案例分析</a></li>
+                <li><a href="{% url 'prog_list' %}">程序列表</a></li>
+                {% else %}
+                <li><a href="{% url 'upload_file' %}">上传文件</a><li>
+                <li><a href="{% url 'place_list' %}">主机列表</a></li>
+                    <li class=""><a href="{% url 'ver_list' %}">批次列表</a></li>
+                    <li><a href="{% url 'testana_list' %}">测试分析</a></li>
+                <li><a href="{% url 'testcase_list' %}">测试案例分析</a></li>
+                <li><a href="{% url 'prog_list' %}">程序列表</a></li>
+                    <!-- <li class=""><a href='{}'>批次列表</a></li> -->
+                    <!-- <li><a href="{}">测试分析</a></li> -->
+                    <!-- <li><a href="{}">测试案例列表</a></li> -->
+                    <!-- <li><a href="{}">程序列表</a></li> -->
+                {% endif %}
+                <!-- <li><a href="{}">Feed</a></li> -->
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>
+
+<br/>
+<br/>
+<br/>
+
+<div class="container">
+
+    <div class="starter-template">
+        {#        {% if messages %}#}
+        {#            <ul class="messages">#}
+        {#                {% for message in messages %}#}
+        {#                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>#}
+        {#                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}#}
+        {#                        {{ message }}#}
+        {#                    </li>#}
+        {#                {% endfor %}#}
+        {#            </ul>#}
+        {#        {% endif %}#}
+        {#        <h1>Bootstrap starter template</h1>#}
+        {#        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>#}
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+</div>
+<!-- /.container -->
+
+{% block scripts %}
+<!-- <script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script> -->
+<!-- <script src="tinymce.min.js"></script> -->
+    <!-- <script>tinymce.init({selector: 'textarea'});</script> -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+    <!-- <script src="jquery.min.js"></script> -->
+    <!-- Latest compiled and minified CSS -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
+    <!-- {% load staticfiles %} -->
+    <!-- <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}" /> -->
+
+    <!-- Optional theme -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
+    <!-- <link rel="stylesheet" href="bootstrap-theme.min.css"> -->
+
+    <!-- Latest compiled and minified JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+    <!-- <script src="bootstrap.min.js"></script>  -->
+
+{% endblock %}
+
+
+</body>
+</html>
