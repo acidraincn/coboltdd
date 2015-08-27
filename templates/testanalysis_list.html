@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>测试分析：</h2>
+{% if testanalysis_list %}
+<ul>
+  {% for testanalysis in testanalysis_list %}
+  <li>
+    <a href="{% url 'testana_detail' testanalysis.id %}">
+      <!-- <h3>{{ testanalysis.program.name }} - {{ testanalysis.version.alias }}{{ testanalysis.program.pds }} ({{ testanalysis.version.name }})</h3> -->
+      <h3>{{ testanalysis }}</h3>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

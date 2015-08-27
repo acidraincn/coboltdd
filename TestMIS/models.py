@@ -4,7 +4,6 @@ from django.core.validators import RegexValidator
 
 
 class Place(models.Model):
-
     name = models.CharField(
         verbose_name='主机名',
         help_text='D3/D4/D5...等主机名称',
@@ -257,6 +256,8 @@ class ExcelContraint(models.Model):
     excel_col = models.ForeignKey(
         verbose_name='添加约束的列',
         to=ExcelCol,
+        null=True  # 不设置这个的话，在 makemigrations TestMIS 时会提示 trying to add a non-nullable
+                   # field 'excel_col' to excelcontraint without a default
     )
 
     constraint_type = models.CharField(
@@ -324,3 +325,6 @@ class ExcelContraint(models.Model):
             self.excel_col.col_name,
             self.constraint_type,
         )
+
+class Document(models.Model):
+    docfile = models.FileField(upload_to='documents/%Y/%m/%d')

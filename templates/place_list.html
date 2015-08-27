@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2> 主机：</h2>
+<ul>
+  {% for place in place_list %}
+  <li>
+    <a href="{% url 'place_detail' place.name %}">
+      <!-- <h3>{{ place.name }}-{{ place.ip }}: {{ place.port }}</h3> -->
+      <!-- <h3>{{ mainframe.objects.all }}</h3> -->
+      <h3>{{ place }}</h3>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

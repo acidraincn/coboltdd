@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<table>
+  <tr>
+    <th scope="col"><h2> 案例号&nbsp&nbsp&nbsp&nbsp&nbsp </h2></th>
+    <th scope="col"><h2> 案例类型&nbsp&nbsp&nbsp&nbsp&nbsp </h2> </th>
+    <th scope="col"><h2> 测试分析 </h2> </th>&nbsp
+  </tr>
+  {% if testcase_list %}
+    {% for testcase in testcase_list %}
+    <tr>
+    <td><a href="{% url 'testcase_detail' testcase.pk %}"><h3>{{ testcase.case_no }}</h3></a></td>
+    {% if testcase.is_base_case %}
+    <td><h3>基础案例</h3></td><p>
+        {% else %}
+    <td><h3>扩展案例</h3></td>
+    {% endif %}
+    <td><h3>{{ testcase.test_analysis }}</h3></td>
+  </tr>
+    {% endfor %}
+    {% endif %}
+</table>
+{% endblock %}

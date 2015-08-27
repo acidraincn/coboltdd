@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if place_detail %}
+
+  <h3>主机名：{{ place_detail.name }}</h3><br>
+  <h3>IP地址：{{ place_detail.ip }}</h3><br>
+  <h3>IP端口(默认为0)：{{ place_detail.port }}</h3>
+
+
+{% endif %}
+{% endblock %}

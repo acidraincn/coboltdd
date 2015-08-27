@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if version_detail %}
+
+  <h3>批次号：{{ version_detail.name }}</h3><br>
+  <h3>主机环境：{{ version_detail.place }}</h3><br>
+  <h3>主机环境前缀：{{ version_detail.alias }}</h3>
+
+{% endif %}
+
+{% endblock %}

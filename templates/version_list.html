@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>批次：</h2>
+{% if version_list  %}
+<ul>
+  {% for ver in version_list %}
+  <li>
+    <a href="{% url 'ver_detail' ver.id %}">
+      <!-- <h3>{{ ver.name }} 批次：{{ ver.alias }} on ({{ ver.place }})</h3> -->
+      <h3>{{ ver }}</h3>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

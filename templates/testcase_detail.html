@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if testcase_detail %}
+<table>
+  <tr>
+    <td><font size="5" color="blue">归属&nbsp&nbsp</font></td>
+    <!-- <td><input type="submit", name="addtestcase" value="Add" onclick="window.location.href('admin/TestMIS/testcase/add?tc_pk={{ testcase_detail.pk }}')"></td> -->
+    <td><a href='/admin/TestMIS/testcase/add?tc_pk={{ testcase_detail.pk }}'>添加测试案例</a></td>
+  </tr>
+</table>
+  <h3>测试分析：{{ testcase_detail.test_analysis }}</h3><br>
+
+  <font size="5" color="blue">基本信息</font><br>
+  <h3>模块名：{{ testcase_detail.model_in_program }}</h3><p>
+  <h3>案例号：{{ testcase_detail.case_no }}</h3><p>
+  <h3>设计者：{{ testcase_detail.designer }}</h3><br>
+
+<table>
+  <tr>
+  <td><font size="5" color="blue">案例继承&nbsp&nbsp</font><br></td>
+  {% if testcase_detail.case_type == 'B' %}
+  <td><a href='/admin/TestMIS/testcase/add?base_pk={{ testcase_detail.pk }}'>添加扩展案例</a></td>
+  {% endif %}
+  </tr>
+</table>
+  <p><h3>案例类型：
+   {{ testcase_detail.get_case_type_display }}</h3></p>
+  <h3>关联基础案例号：{{ testcase_detail.base_case }}</h3><p>
+  <h3>基础案例划分：{{ testcase_detail.case_div }}</h3><br>
+
+  <font size="5" color="blue">案例说明</font><br>
+  <h3>案例注释：{{ testcase_detail.case_explain }}</h3><p>
+  <h3>测试目标：{{ testcase_detail.case_aim }}</h3><br>
+
+  <font size="5" color="blue">测试点</font><br>
+  <table>
+    <tr>
+      <th><h3>切片标签&nbsp&nbsp&nbsp&nbsp&nbsp</h3></th>
+      <th><h3>类型&nbsp&nbsp&nbsp&nbsp&nbsp</h3></th>
+      <th><h3>变量&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h3></th>
+      <th><h3>变量注解&nbsp&nbsp&nbsp&nbsp&nbsp</h3></th>
+      <th><h3>输入值/观测值</h3></th>
+    </tr>
+    {% if testcase_detail.testpoint_set.all %}
+    {% for testpoint in testcase_detail.testpoint_set.all %}
+    <tr>
+      <td><h3>{{ testpoint.point_name }}</h3></td>
+      <td>
+          <h3>{{ testpoint.get_point_type_display }}</h3>
+      </td>
+      <td><h3>{{ testpoint.var_name }}</h3></td>
+      <td><h3>{{ testpoint.var_comment }}</h3></td>
+      <td><h3>{{ testpoint.var_value }}</h3></td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+  </table>
+{% endif %}
+
+{% endblock %}
