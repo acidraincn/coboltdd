@@ -6,15 +6,18 @@ from django.forms.models import BaseInlineFormSet
 from django.forms.models import inlineformset_factory
 from django.forms.models import ModelForm, BaseFormSet
 from .models import Place, Program, Version, TestAnalysis, TestCase,\
-                    TestPoint, ExcelContraint, ExcelCol
+                    TestPoint, ExcelContraint, ExcelCol, Document
 from .forms import TestPointInlineFormSet, TestPointForm
 
 admin.site.register(Place)
 admin.site.register(Program)
 admin.site.register(Version)
 admin.site.register(TestAnalysis)
+
+admin.site.register(Document)
 # admin.site.register(TestPoint)
 # ExcelCol admin definition
+
 
 
 class ExcelConstraintInline(admin.TabularInline):
