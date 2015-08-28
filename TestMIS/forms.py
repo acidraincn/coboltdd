@@ -46,7 +46,6 @@ class TestPointInlineFormSet(BaseInlineFormSet):
                     # {'var_comment': tc.var_comment},
                     # {'var_value': tc.var_value}
                 )
-            print initial
             kwargs['initial'] = initial
 
         super(TestPointInlineFormSet, self).__init__(*args, **kwargs)

@@ -146,6 +146,7 @@ class TestCase(models.Model):
             readonly_fileds.append('base_case')
         else:
             readonly_fileds.append('case_div')
+        # readonly_fileds.append('case_type')
         return readonly_fileds
 
     def query_base_cases(self):

@@ -85,6 +85,7 @@ class TestCaseAdmin(admin.ModelAdmin):
     # view_on_site = False
     # detail
     radio_fields = {'case_type': admin.HORIZONTAL}
+    my_readonly_fields = ('case_type',)
     inlines = [TestPointInline]
     fieldsets = [
         ('归属', {'fields': ['test_analysis', ]}),
@@ -94,6 +95,7 @@ class TestCaseAdmin(admin.ModelAdmin):
         ('案例继承', {'fields': ['case_type', 'base_case', 'case_div']}),
         ('案例说明', {'fields': ['case_explain', 'case_aim']}),
     ]
+    # readonly_fields = ('case_type',)
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
@@ -105,10 +107,13 @@ class TestCaseAdmin(admin.ModelAdmin):
         form = super(TestCaseAdmin, self).get_form(
                         request, obj, **kwargs)
         choices = [('', '---------'), ]
+        if request.GET.__contains__('base_pk'):
+        	form.base_fields['case_type'].widget.attrs["disabled"] = "disabled"
         if obj and obj.is_extend_case():
             base_cases = obj.query_base_cases()
             choices.extend((x.id, x.case_no) for x in base_cases)
             form.base_fields['base_case'].choices = choices
+		
         return form
 
     # def get_inline_instances(self, request, obj):
@@ -130,6 +135,7 @@ class TestCaseAdmin(admin.ModelAdmin):
         	testcase_id = request.GET.get('base_pk', '')
         	testcase_item = TestCase.objects.get(id=testcase_id)
         	return {
+        		'test_analysis': testcase_item.test_analysis,
         		'case_type': 'E',
         		'base_case': testcase_item
         	}
