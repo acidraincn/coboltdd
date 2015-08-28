@@ -107,8 +107,12 @@ class TestCaseAdmin(admin.ModelAdmin):
         form = super(TestCaseAdmin, self).get_form(
                         request, obj, **kwargs)
         choices = [('', '---------'), ]
-        if request.GET.__contains__('base_pk'):
+        if request.GET.__contains__('tc_pk'):
+        	form.base_fields['test_analysis'].widget.attrs["disabled"] = "disabled"
+        elif request.GET.__contains__('base_pk'):
         	form.base_fields['case_type'].widget.attrs["disabled"] = "disabled"
+        	form.base_fields['base_case'].widget.attrs["disabled"] = "disabled"
+        	form.base_fields['test_analysis'].widget.attrs["disabled"] = "disabled"
         if obj and obj.is_extend_case():
             base_cases = obj.query_base_cases()
             choices.extend((x.id, x.case_no) for x in base_cases)
