@@ -6,7 +6,7 @@ from django.forms.models import BaseInlineFormSet
 from django.forms.models import inlineformset_factory
 from django.forms.models import ModelForm, BaseFormSet
 from .models import Place, Program, Version, TestAnalysis, TestCase,\
-                    TestPoint, ExcelContraint, ExcelCol, Document
+                    TestPoint, ExcelContraint, ExcelCol, Document, Report
 from .forms import TestPointInlineFormSet, TestPointForm
 
 admin.site.register(Place)
@@ -15,6 +15,7 @@ admin.site.register(Version)
 admin.site.register(TestAnalysis)
 
 admin.site.register(Document)
+admin.site.register(Report)
 # admin.site.register(TestPoint)
 # ExcelCol admin definition
 
@@ -107,17 +108,17 @@ class TestCaseAdmin(admin.ModelAdmin):
         form = super(TestCaseAdmin, self).get_form(
                         request, obj, **kwargs)
         choices = [('', '---------'), ]
-        if request.GET.__contains__('tc_pk'):
-        	form.base_fields['test_analysis'].widget.attrs["disabled"] = "disabled"
-        elif request.GET.__contains__('base_pk'):
-        	form.base_fields['case_type'].widget.attrs["disabled"] = "disabled"
-        	form.base_fields['base_case'].widget.attrs["disabled"] = "disabled"
-        	form.base_fields['test_analysis'].widget.attrs["disabled"] = "disabled"
+        # if request.GET.__contains__('tc_pk'):
+        #     form.base_fields['test_analysis'].widget.attrs["disabled"] = True
+        # elif request.GET.__contains__('base_pk'):
+        # 	form.base_fields['case_type'].widget.attrs["disabled"] = "disabled"
+        # 	form.base_fields['base_case'].widget.attrs["disabled"] = "disabled"
+        # 	form.base_fields['test_analysis'].widget.attrs["disabled"] = "disabled"
         if obj and obj.is_extend_case():
             base_cases = obj.query_base_cases()
             choices.extend((x.id, x.case_no) for x in base_cases)
             form.base_fields['base_case'].choices = choices
-		
+
         return form
 
     # def get_inline_instances(self, request, obj):

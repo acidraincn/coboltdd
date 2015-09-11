@@ -7,7 +7,7 @@
   <tr>
     <td><font size="5" color="blue">归属&nbsp&nbsp</font></td>
     <!-- <td><input type="submit", name="addtestcase" value="Add" onclick="window.location.href('admin/TestMIS/testcase/add?tc_pk={{ testcase_detail.pk }}')"></td> -->
-    <td><a href='/admin/TestMIS/testcase/add?tc_pk={{ testcase_detail.pk }}'>添加测试案例</a></td>
+    <td><a href='/admin/TestMIS/testcase/add/?tc_pk={{ testcase_detail.pk }}'>添加测试案例</a></td>
   </tr>
 </table>
   <h3>测试分析：{{ testcase_detail.test_analysis }}</h3><br>
@@ -21,7 +21,7 @@
   <tr>
   <td><font size="5" color="blue">案例继承&nbsp&nbsp</font><br></td>
   {% if testcase_detail.case_type == 'B' %}
-  <td><a href='/admin/TestMIS/testcase/add?base_pk={{ testcase_detail.pk }}'>添加扩展案例</a></td>
+  <td><a href='/admin/TestMIS/testcase/add/?base_pk={{ testcase_detail.pk }}'>添加扩展案例</a></td>
   {% endif %}
   </tr>
 </table>
