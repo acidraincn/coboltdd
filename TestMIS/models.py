@@ -146,6 +146,7 @@ class TestCase(models.Model):
             readonly_fileds.append('base_case')
         else:
             readonly_fileds.append('case_div')
+        # readonly_fileds.append('case_type')
         return readonly_fileds
 
     def query_base_cases(self):
@@ -327,4 +328,78 @@ class ExcelContraint(models.Model):
         )
 
 class Document(models.Model):
-    docfile = models.FileField(upload_to='documents/%Y/%m/%d')
+    docfile = models.FileField(
+        verbose_name="选择文件",
+        upload_to='documents/%Y/%m/%d'
+    )
+
+    class Meta:
+        verbose_name="上传文件"
+        verbose_name_plural="上传文件"
+
+    def __unicode__(self):
+        return self.docfile.url
+
+class Report(models.Model):
+    execute_date = models.DateField(verbose_name="执行日期")
+    execute_time = models.TimeField(verbose_name="执行时间")
+    driven_trade = models.CharField(
+        verbose_name="驱动交易",
+        max_length=20
+    )
+    # test_program = models.CharField(
+    #     verbose_name="测试程序",
+    #     max_length=10,
+    #     blank=True
+    # )
+    test_teller = models.CharField(
+        verbose_name="测试柜员",
+        max_length=20
+    )
+    # case_no = models.CharField(
+    #     verbose_name="案例号",
+    #     max_length=20,
+    #     blank=True
+    # )
+    test_point = models.ForeignKey(
+        verbose_name="测试点",
+        to=TestPoint
+    )
+    STATUS_CHOICES = (
+        ('B', u'(空白)'),
+        ('Y', u'成功'),
+        )
+    status = models.CharField(
+        verbose_name="是否成功",
+        max_length=10,
+        choices=STATUS_CHOICES,
+    )
+    # var_observed=models.CharField(
+    #     verbose_name="观测变量",
+    #     max_length=50
+    # )
+    actual_value=models.CharField(
+        verbose_name="实际值",
+        max_length=20,
+    )
+    # predict_value=models.FloatField(
+    #     verbose_name="预期值",
+    #     default=0.0
+    # )
+
+    class Meta:
+        unique_together=(("execute_date", "execute_time", "test_point"),)
+        # unique_together=(("test_point.test_case.test_analysis.program.name",
+        #                   "test_point.test_case.case_no",
+        #                   "test_point"
+        # ),)
+        verbose_name=u"单元测试报表"
+        verbose_name_plural=u"单元测试报表"
+
+    def __unicode__(self):
+        return u"{0}-{1}-{2}".format(self.execute_date, self.execute_time, self.test_point)
+
+    # def save(self):
+    #     self.test_program = self.test_point.test_case.test_analysis.program.name
+    #     self.case_no = self.test_point.test_case.case_no
+    #     super(Report, self).save()

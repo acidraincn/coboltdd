@@ -7,7 +7,8 @@ from django.contrib.contenttypes.models import ContentType
 from django import forms
 from django.template import RequestContext
 from .forms import UploadFileForm
-from .models import Document
+from .models import Document, Report
+import datetime
 
 # Create your views here.
 class IndexView(ListView):
@@ -86,6 +87,24 @@ def upload_document(request):
         if form.is_valid():
             newdoc = Document(docfile = request.FILES['docfile'])
             newdoc.save()
+       ##################### begin save the .txt file to database ########################################
+            f = open(newdoc.docfile.path, "r")
+            for line in f.readlines():
+                item = list(line.strip().split('\t'))
+                prog = Program.objects.get(name=item[3])
+                ta = TestAnalysis.objects.get(program=prog)
+                tc = TestCase.objects.filter(test_analysis=ta, case_no=item[5])
+                if len(item)==7:
+                    tp = TestPoint.objects.get(test_case=tc, point_name=item[6])
+                    a_status = 'B'
+                    act_value = ''
+                elif len(item)==11:
+                    tp = TestPoint.objects.get(test_case=tc, point_name=item[6], var_name=item[8])
+                    a_status = item[7]
+                    act_value = item[9]
+                Report.objects.create(execute_date=datetime.date(int(item[0][:4]), int(item[0][4:6]), int(item[0][6:])), execute_time=datetime.time(int(item[1][:2]), int(item[1][3:5]), int(item[1][6:])), driven_trade=item[2], test_teller=item[4], test_point=tp, status=a_status, actual_value=act_value)
+       ##################### end save the .txt file to database ##########################################
+
             # return HttpResponse('Upload OK!')
 
             # Redirect to the index page after POST
